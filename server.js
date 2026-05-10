@@ -38,6 +38,7 @@ app.get('*', (req, res) => {
 
 const server = app.listen(PORT, () => {
   console.log(`🐾 CozyPaw Server running on port ${PORT}`);
+  console.log(`🔐 Stripe payment processing ACTIVE!`);
   console.log(`Ready for drop day!`);
 });
 

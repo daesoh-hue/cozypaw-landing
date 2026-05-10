@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - CozyPaw Senior Dog Supplements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5545;
+            --secondary: #c96a42;
+            --accent: #faf6ef;
+            --dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--accent);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav a {
+            color: var(--accent);
+            margin-left: 2rem;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+            font-size: 48px;
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 1.5rem;
+        }
+
+        .account-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .user-profile {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-avatar {
+            font-size: 64px;
+            margin-bottom: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .menu-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-section h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            width: 100%;
+            text-align: left;
+            background: none;
+        }
+
+        .menu-item:hover {
+            background-color: var(--accent);
+            color: var(--secondary);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .order-card {
+            background: #f9f9f9;
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .order-status.delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .order-status.processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .order-status.pending {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .order-item {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-total {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-top: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .save-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .save-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .preference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .preference-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--accent);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .account-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            nav a {
+                margin-left: 1rem;
+                font-size: 12px;
+            }
+
+            .menu-item {
+                display: inline-block;
+                margin-right: 1rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🐾 CozyPaw</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="shop.html">Shop</a>
+                <a href="blog.html">Blog</a>
+                <a href="cart.html">Cart</a>
+                <a href="account.html">Account</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>My Account</h1>
+
+        <div class="account-wrapper">
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-name">Sarah Anderson</div>
+                    <div class="user-email">sarah@example.com</div>
+                </div>
+
+                <div class="menu-section">
+                    <h3>Account</h3>
+                    <button class="menu-item active" onclick="switchSection('dashboard')">Dashboard</button>
+                    <button class="menu-item" onclick="switchSection('orders')">Order History</button>
+                    <button class="menu-item" onclick="switchSection('profile')">Profile Settings</button>
+                    <button class="menu-item" onclick="switchSection('preferences')">Preferences</button>
+                </div>
+
+                <div class="menu-section">
+                    <h3>Support</h3>
+                    <button class="menu-item" onclick="switchSection('faq')">FAQ</button>
+                    <button class="menu-item" onclick="switchSection('contact')">Contact Us</button>
+                </div>
+
+                <div class="menu-section">
+                    <button class="menu-item" style="color: #dc3545; margin-top: 1rem; border-top: 1px solid #eee; padding-top: 1rem;" onclick="logout()">Log Out</button>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section active">
+                    <h2>Welcome Back, Sarah!</h2>
+                    <p style="margin-bottom: 2rem; color: #666;">Here's an overview of your account and recent activity.</p>
+
+                    <h3 style="font-family: 'Cormorant Garamond', serif; color: var(--primary); font-size: 20px; margin: 2rem 0 1rem;">Recent Orders</h3>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">#2026-0510-001 • May 8, 2026</div>
+                            <span class="order-status delivered">Delivered</span>
+                        </div>
+                        <div class="order-item">Joint & Mobility (2) • Immune & Vitality (1)</div>
+                        <div class="order-total">$154.97</div>
+                    </div>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">#2026-0415-001 • April 15, 2026</div>
+                            <span class="order-status delivered">Delivered</span>
+                        </div>
+                        <div class="order-item">Calm & Relax (1) • Gut & Digestion (1)</div>
+                        <div class="order-total">$71.98</div>
+                    </div>
+
+                    <h3 style="font-family: 'Cormorant Garamond', serif; color: var(--primary); font-size: 20px; margin: 2rem 0 1rem;">Account Stats</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                        <div style="background: #f0f8f5; padding: 1.5rem; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 28px; font-weight: bold; color: var(--primary);">8</div>
+                            <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Total Orders</div>
+                        </div>
+                        <div style="background: #f0f8f5; padding: 1.5rem; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 28px; font-weight: bold; color: var(--secondary);">$487.43</div>
+                            <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Lifetime Spend</div>
+                        </div>
+                        <div style="background: #f0f8f5; padding: 1.5rem; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 28px; font-weight: bold; color: var(--primary);">🎁</div>
+                            <div style="font-size: 12px; color: #999; margin-top: 0.5rem;">Member Perks</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order History Section -->
+                <div id="orders" class="content-section">
+                    <h2>Order History</h2>
+                    <p style="margin-bottom: 2rem; color: #666;">All your past orders and purchases.</p>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">#2026-0510-001 • May 8, 2026</div>
+                            <span class="order-status delivered">Delivered</span>
+                        </div>
+                        <div class="order-item">Joint & Mobility (2) • Immune & Vitality (1)</div>
+                        <div class="order-total">$154.97</div>
+                    </div>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">#2026-0415-001 • April 15, 2026</div>
+                            <span class="order-status delivered">Delivered</span>
+                        </div>
+                        <div class="order-item">Calm & Relax (1) • Gut & Digestion (1)</div>
+                        <div class="order-total">$71.98</div>
+                    </div>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div class="order-id">#2026-0301-001 • March 1, 2026</div>
+                            <span class="order-status delivered">Delivered</span>
+                        </div>
+                        <div class="order-item">Allergy & Skin (1)</div>
+                        <div class="order-total">$44.99</div>
+                    </div>
+                </div>
+
+                <!-- Profile Settings Section -->
+                <div id="profile" class="content-section">
+                    <h2>Profile Settings</h2>
+                    <p style="margin-bottom: 2rem; color: #666;">Update your account information.</p>
+
+                    <form onsubmit="return saveProfile(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="Sarah Anderson" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" value="sarah@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dog's Name</label>
+                            <input type="text" value="Max" placeholder="Your dog's name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dog's Age</label>
+                            <input type="number" value="12" placeholder="Years" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Shipping Address</label>
+                            <input type="text" value="123 Main Street, Portland, OR 97201" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" value="+1 (503) 555-0123" required>
+                        </div>
+
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Preferences Section -->
+                <div id="preferences" class="content-section">
+                    <h2>Communication Preferences</h2>
+                    <p style="margin-bottom: 2rem; color: #666;">Manage how we stay in touch with you.</p>
+
+                    <div class="preference-item">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">Email Marketing</div>
+                            <div style="font-size: 12px; color: #999;">Receive tips, new products, and special offers</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="preference-item">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">Order Updates</div>
+                            <div style="font-size: 12px; color: #999;">Email notifications about your orders</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="preference-item">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">SMS Notifications</div>
+                            <div style="font-size: 12px; color: #999;">Text messages about order status</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="preference-item">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">Product Recommendations</div>
+                            <div style="font-size: 12px; color: #999;">Personalized supplement suggestions for your dog</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div id="faq" class="content-section">
+                    <h2>Frequently Asked Questions</h2>
+                    <p style="margin-bottom: 2rem; color: #666;">Find answers to common questions about CozyPaw.</p>
+
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 4px; margin-bottom: 1rem;">
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">How long does it take to see results?</div>
+                        <div style="font-size: 14px; color: #666;">Most customers report visible improvement within 30 days. Some notice changes in as little as 14 days. Results vary by individual dog and their specific health needs.</div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 4px; margin-bottom: 1rem;">
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">What's your guarantee?</div>
+                        <div style="font-size: 14px; color: #666;">We offer a 60-day money-back guarantee. If your dog doesn't improve, simply return your order for a full refund—no questions asked.</div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 4px; margin-bottom: 1rem;">
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Are your products vet-approved?</div>
+                        <div style="font-size: 14px; color: #666;">Yes! All CozyPaw supplements are formulated with veterinary guidance and recommended by vets across the country. We partner with leading veterinary nutritionists.</div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 4px;">
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Can I use multiple products together?</div>
+                        <div style="font-size: 14px; color: #666;">Absolutely! Many customers use multiple supplements to address different aspects of their dog's health. Consult with your vet if you have specific concerns.</div>
+                    </div>
+                </div>
+
+                <!-- Contact Section -->
+                <div id="contact" class="content-section">
+                    <h2>Contact Us</h2>
+                    <p style="margin-bottom: 2rem; color: #666;">We're here to help. Get in touch with our team.</p>
+
+                    <form onsubmit="return sendMessage(event)">
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="How can we help?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="Tell us what's on your mind..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="save-btn">Send Message</button>
+                    </form>
+
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                        <h3 style="font-family: 'Cormorant Garamond', serif; color: var(--primary); font-size: 18px; margin-bottom: 1rem;">Other Ways to Reach Us</h3>
+                        <p style="margin-bottom: 1rem;"><strong>Email:</strong> support@cozypaw.com</p>
+                        <p style="margin-bottom: 1rem;"><strong>Phone:</strong> 1-800-COZYPAW (1-800-269-9729)</p>
+                        <p><strong>Hours:</strong> Monday-Friday, 9am-6pm PT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CozyPaw. All rights reserved. | <a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="shop.html">Shop</a></p>
+    </footer>
+
+    <script>
+        function switchSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all menu items
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Mark button as active
+            event.target.classList.add('active');
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+            alert('Profile updated successfully!');
+            return false;
+        }
+
+        function sendMessage(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+            return false;
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to log out?')) {
+                alert('You have been logged out. Redirecting to home page...');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

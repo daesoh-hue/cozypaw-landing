@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - CozyPaw Senior Dog Supplements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5545;
+            --secondary: #c96a42;
+            --accent: #faf6ef;
+            --dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--accent);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav a {
+            color: var(--accent);
+            margin-left: 2rem;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, #3a6b56 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-date {
+            color: var(--secondary);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h2 {
+            font-size: 22px;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: var(--secondary);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--accent);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .featured-post {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .featured-image {
+            background: linear-gradient(135deg, var(--secondary) 0%, #a64d2e 100%);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .featured-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-content h2 {
+            font-size: 32px;
+            margin-bottom: 1rem;
+        }
+
+        .featured-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 200px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            nav a {
+                margin-left: 1rem;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🐾 CozyPaw</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="shop.html">Shop</a>
+                <a href="blog.html">Blog</a>
+                <a href="cart.html">Cart</a>
+                <a href="account.html">Account</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Senior Dog Health & Wellness Blog</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 3rem;">Expert insights on keeping your aging companion comfortable and active</p>
+
+        <div class="featured-post">
+            <div class="featured-image">🦴</div>
+            <div class="featured-content">
+                <div class="blog-date">May 10, 2026</div>
+                <h2>The Truth About Joint Health in Senior Dogs</h2>
+                <p>As dogs age, their joints undergo natural changes that can lead to stiffness and discomfort. Learn why glucosamine and green-lipped mussel are game-changers for maintaining mobility, and how you can spot early signs of joint issues before they become serious problems.</p>
+                <a href="#" class="read-more">Read Full Article →</a>
+            </div>
+        </div>
+
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-image">😴</div>
+                <div class="blog-content">
+                    <div class="blog-date">May 8, 2026</div>
+                    <h2>Anxiety in Senior Dogs: Natural Solutions</h2>
+                    <p>Aging dogs often experience increased anxiety from changes in hearing, vision, and cognition. Discover how adaptogens and calming herbs like chamomile can help your dog feel more relaxed and secure during their golden years.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🥗</div>
+                <div class="blog-content">
+                    <div class="blog-date">May 5, 2026</div>
+                    <h2>Digestive Health in Aging Dogs</h2>
+                    <p>Gut health is the foundation of overall wellness. Learn why probiotics and digestive enzymes become increasingly important as your dog ages, and how to support their digestive system naturally.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🛡️</div>
+                <div class="blog-content">
+                    <div class="blog-date">May 1, 2026</div>
+                    <h2>Boosting Immunity in Senior Dogs</h2>
+                    <p>A strong immune system is critical for aging dogs. Explore the power of antioxidants, mushroom blends, and essential nutrients that help your senior dog fight off illness and maintain vitality.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">✨</div>
+                <div class="blog-content">
+                    <div class="blog-date">April 28, 2026</div>
+                    <h2>Skin & Coat: The Omega-3 Revolution</h2>
+                    <p>Healthy skin and coat reflect internal wellness. Discover how omega-3 fatty acids and collagen supplements can transform your dog's appearance and comfort, reducing itching and improving coat quality.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">🏃</div>
+                <div class="blog-content">
+                    <div class="blog-date">April 25, 2026</div>
+                    <h2>Exercise & Mobility: Finding the Balance</h2>
+                    <p>Senior dogs still need activity, but the right kind. Learn how to adjust exercise routines for aging companions, and how supplements support active lifestyles without overexertion.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image">❤️</div>
+                <div class="blog-content">
+                    <div class="blog-date">April 22, 2026</div>
+                    <h2>Quality of Life: Making Every Day Count</h2>
+                    <p>The goal isn't just longevity—it's vitality. Explore how holistic wellness strategies, including targeted supplementation, help your senior dog enjoy their final years with energy, comfort, and joy.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CozyPaw. All rights reserved. | <a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="shop.html">Shop</a> | <a href="blog.html">Blog</a></p>
+    </footer>
+</body>
+</html>

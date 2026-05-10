@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - CozyPaw Senior Dog Supplements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #2c5545; --secondary: #c96a42; --accent: #faf6ef; --dark: #1a1a1a; }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--accent); }
+        header { background-color: var(--primary); color: var(--accent); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; }
+        nav a { color: var(--accent); margin-left: 2rem; text-decoration: none; font-size: 14px; }
+        nav a:hover { color: var(--secondary); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        h1, h2 { font-family: 'Cormorant Garamond', serif; color: var(--primary); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .product-card:hover { transform: translateY(-8px); }
+        .product-image { width: 100%; height: 240px; object-fit: cover; }
+        .product-info { padding: 1.5rem; }
+        .product-info h3 { margin-bottom: 0.5rem; color: var(--primary); }
+        .product-price { font-size: 20px; color: var(--secondary); font-weight: bold; margin: 1rem 0; }
+        button { background-color: var(--primary); color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        button:hover { background-color: var(--secondary); }
+        footer { background-color: var(--dark); color: var(--accent); padding: 3rem 2rem; text-align: center; margin-top: 4rem; }
+        footer a { color: var(--secondary); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🐾 CozyPaw</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="shop.html">Shop</a>
+                <a href="blog.html">Blog</a>
+                <a href="cart.html">Cart</a>
+                <a href="account.html">Account</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Our Products</h1>
+        <p>All products backed by our 60-day money-back guarantee</p>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184738_08e99cbb-743e-4ad2-9983-0efb8b81fc5d.png" alt="Joint & Mobility" class="product-image">
+                <div class="product-info">
+                    <h3>Joint & Mobility</h3>
+                    <p>Green-lipped mussel, glucosamine, chondroitin</p>
+                    <div class="product-price">$39.99</div>
+                    <button onclick="addToCart('Joint & Mobility', 39.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184854_30d63f42-8970-45ce-b6c7-55bed033e551.png" alt="Calm & Relax" class="product-image">
+                <div class="product-info">
+                    <h3>Calm & Relax</h3>
+                    <p>Chamomile, L-theanine, adaptogenic herbs</p>
+                    <div class="product-price">$34.99</div>
+                    <button onclick="addToCart('Calm & Relax', 34.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184854_30d63f42-8970-45ce-b6c7-55bed033e551.png" alt="Gut & Digestion" class="product-image">
+                <div class="product-info">
+                    <h3>Gut & Digestion</h3>
+                    <p>Probiotics, fiber, enzymes</p>
+                    <div class="product-price">$36.99</div>
+                    <button onclick="addToCart('Gut & Digestion', 36.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184738_2afdfab3-34d9-44a3-a9e5-e89fbc86a968.png" alt="Allergy & Skin" class="product-image">
+                <div class="product-info">
+                    <h3>Allergy & Skin</h3>
+                    <p>Omega-3, collagen, turmeric</p>
+                    <div class="product-price">$44.99</div>
+                    <button onclick="addToCart('Allergy & Skin', 44.99)">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184739_d451326c-5ad4-4f2b-bf42-78fefb6aef02.png" alt="Immune & Vitality" class="product-image">
+                <div class="product-info">
+                    <h3>Immune & Vitality</h3>
+                    <p>Antioxidants, mushroom blend, elderberry</p>
+                    <div class="product-price">$41.99</div>
+                    <button onclick="addToCart('Immune & Vitality', 41.99)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CozyPaw. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function addToCart(product, price) {
+            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            cart.push({ product, price, quantity: 1 });
+            localStorage.setItem('cozypawCart', JSON.stringify(cart));
+            alert(product + ' added to cart!');
+        }
+    </script>
+</body>
+</html>

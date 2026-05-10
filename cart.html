@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - CozyPaw Senior Dog Supplements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5545;
+            --secondary: #c96a42;
+            --accent: #faf6ef;
+            --dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--accent);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav a {
+            color: var(--accent);
+            margin-left: 2rem;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+            font-size: 48px;
+            margin-bottom: 2rem;
+        }
+
+        .cart-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .empty-cart-icon {
+            font-size: 64px;
+            margin-bottom: 1rem;
+        }
+
+        .empty-cart p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .continue-shopping:hover {
+            background-color: var(--secondary);
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .item-price {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-control button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-control button:hover {
+            background-color: var(--secondary);
+        }
+
+        .quantity-control input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px;
+            font-size: 14px;
+        }
+
+        .remove-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn:hover {
+            background-color: #ff5252;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid var(--primary);
+            padding-top: 1rem;
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .trust-signals {
+            background: #f0f8f5;
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .trust-signals p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: var(--secondary);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 2rem;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #a64d2e;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--accent);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .cart-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            nav a {
+                margin-left: 1rem;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🐾 CozyPaw</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="shop.html">Shop</a>
+                <a href="blog.html">Blog</a>
+                <a href="cart.html">Cart</a>
+                <a href="account.html">Account</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Shopping Cart</h1>
+
+        <div class="cart-wrapper">
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be populated here -->
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-title">Order Summary</div>
+
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shipping">FREE</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Tax:</span>
+                    <span id="tax">$0.00</span>
+                </div>
+
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+
+                <div class="trust-signals">
+                    <p>✅ <strong>60-day Money-Back Guarantee</strong><br>Not satisfied? Full refund, no questions asked.</p>
+                    <p style="margin-top: 0.75rem;">🚚 <strong>FREE Shipping</strong><br>On orders over $35. Fast delivery.</p>
+                    <p style="margin-top: 0.75rem;">🇺🇸 <strong>Made in USA</strong><br>Manufactured with highest quality standards.</p>
+                </div>
+
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CozyPaw. All rights reserved. | <a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="shop.html">Shop</a></p>
+    </footer>
+
+    <script>
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            const cartItemsDiv = document.getElementById('cartItems');
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Your cart is empty</p>
+                        <a href="shop.html" class="continue-shopping">Continue Shopping</a>
+                    </div>
+                `;
+                updateSummary([]);
+                return;
+            }
+
+            let html = '';
+            cart.forEach((item, index) => {
+                const itemTotal = (item.price * item.quantity).toFixed(2);
+                html += `
+                    <div class="cart-item">
+                        <div class="item-name">${item.product}</div>
+                        <div class="item-price">$${item.price.toFixed(2)} each</div>
+                        <div class="quantity-control">
+                            <button onclick="updateQuantity(${index}, -1)">−</button>
+                            <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, 0, this.value)" readonly>
+                            <button onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="item-price" style="margin-bottom: 0.5rem;">$${itemTotal}</div>
+                            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItemsDiv.innerHTML = html;
+            updateSummary(cart);
+        }
+
+        function updateQuantity(index, change, newValue) {
+            const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            if (newValue !== undefined) {
+                cart[index].quantity = parseInt(newValue);
+            } else {
+                cart[index].quantity = Math.max(1, cart[index].quantity + change);
+            }
+            localStorage.setItem('cozypawCart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cozypawCart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function updateSummary(cart) {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.08; // 8% tax estimate
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('tax').textContent = '$' + tax.toFixed(2);
+            document.getElementById('total').textContent = '$' + total.toFixed(2);
+        }
+
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Thank you for your order! In a real implementation, this would process payment securely. Your CozyPaw supplements will ship within 24 hours.\n\nOrder Confirmation has been sent to your email.');
+            // In production, this would redirect to a payment processor (Stripe, PayPal, etc.)
+        }
+
+        // Load cart on page load
+        loadCart();
+    </script>
+</body>
+</html>

@@ -255,16 +255,42 @@
         .product-card {
             background: white;
             border: 2px solid var(--dark);
-            padding: 24px;
+            padding: 0;
             border-radius: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 24px rgba(44, 85, 69, 0.15);
             border-color: var(--secondary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-card h3,
+        .product-card p,
+        .product-price,
+        .product-card button {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .product-card h3 {
+            padding-top: 16px;
+        }
+
+        .product-card button {
+            margin-bottom: 16px;
         }
 
         .product-icon {
@@ -678,7 +704,7 @@
 
             <div class="products-grid">
                 <div class="product-card fade-in">
-                    <div class="product-icon">🦴</div>
+                    <img src="https://images.unsplash.com/photo-1587300411207-62ad48a60b69?w=400&h=300&fit=crop" alt="Joint & Mobility Supplement" class="product-image">
                     <h3>Joint & Mobility</h3>
                     <p>Green-lipped mussel, glucosamine, chondroitin for flexible joints and pain relief</p>
                     <div class="product-price">$39.99</div>
@@ -686,7 +712,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">😴</div>
+                    <img src="https://images.unsplash.com/photo-1611003228941-98852ba62227?w=400&h=300&fit=crop" alt="Calm & Relax Supplement" class="product-image">
                     <h3>Calm & Relax</h3>
                     <p>Chamomile, L-theanine, and adaptogenic herbs for peaceful sleep</p>
                     <div class="product-price">$34.99</div>
@@ -694,7 +720,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">🫘</div>
+                    <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&h=300&fit=crop" alt="Gut & Digestion Supplement" class="product-image">
                     <h3>Gut & Digestion</h3>
                     <p>Probiotics, fiber, enzymes for healthy digestion and nutrient absorption</p>
                     <div class="product-price">$36.99</div>
@@ -702,7 +728,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">🐕‍🦺</div>
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=300&fit=crop" alt="Allergy & Skin Supplement" class="product-image">
                     <h3>Allergy & Skin</h3>
                     <p>Omega-3, collagen, turmeric for itchy skin and coat health</p>
                     <div class="product-price">$44.99</div>
@@ -710,7 +736,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">🛡️</div>
+                    <img src="https://images.unsplash.com/photo-1601158064925-9d4e93a2b98e?w=400&h=300&fit=crop" alt="Immune & Vitality Supplement" class="product-image">
                     <h3>Immune & Vitality</h3>
                     <p>Antioxidants, mushroom blend, elderberry for immune support</p>
                     <div class="product-price">$41.99</div>
@@ -728,7 +754,7 @@
 
             <div class="products-grid">
                 <div class="product-card fade-in">
-                    <div class="product-icon">🛏️</div>
+                    <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4d4b550?w=400&h=300&fit=crop" alt="Orthopedic Pet Bed" class="product-image">
                     <h3>Orthopedic Pet Bed</h3>
                     <p>Memory foam support for arthritic joints and better sleep</p>
                     <div class="product-price">$129.99</div>
@@ -736,7 +762,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">🎀</div>
+                    <img src="https://images.unsplash.com/photo-1558623166-f75e1b1cece0?w=400&h=300&fit=crop" alt="Ergonomic Leash" class="product-image">
                     <h3>Ergonomic Leash</h3>
                     <p>Reduces pull on aging joints during walks</p>
                     <div class="product-price">$29.99</div>
@@ -744,7 +770,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">🍽️</div>
+                    <img src="https://images.unsplash.com/photo-1560807707-4cc4b41c5e4e?w=400&h=300&fit=crop" alt="Elevated Bowls Set" class="product-image">
                     <h3>Elevated Bowls Set</h3>
                     <p>Raised feeding reduces neck strain for seniors</p>
                     <div class="product-price">$44.99</div>
@@ -752,7 +778,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">🎮</div>
+                    <img src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=400&h=300&fit=crop" alt="Interactive Feeder" class="product-image">
                     <h3>Interactive Feeder</h3>
                     <p>Mental stimulation without overexertion</p>
                     <div class="product-price">$34.99</div>
@@ -760,7 +786,7 @@
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-icon">💪</div>
+                    <img src="https://images.unsplash.com/photo-1540573133985-c27d48cf155d?w=400&h=300&fit=crop" alt="Wellness Harness" class="product-image">
                     <h3>Wellness Harness</h3>
                     <p>Support harness for weak back legs and mobility assistance</p>
                     <div class="product-price">$59.99</div>

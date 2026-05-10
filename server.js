@@ -1,16 +1,33 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Get the directory where files are
+const fileDir = process.cwd();
+
+console.log(`Serving files from: ${fileDir}`);
+console.log(`Index.html exists: ${fs.existsSync(path.join(fileDir, 'index.html'))}`);
+
 // Serve static files (CSS, JS, images)
-const staticDir = process.cwd();
-app.use(express.static(staticDir));
+app.use(express.static(fileDir));
+
+// Health check route
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', cwd: process.cwd() });
+});
 
 // Serve index.html for all routes (SPA fallback)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(staticDir, 'index.html'));
+  const indexPath = path.join(fileDir, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Error serving index.html:', err);
+      res.status(404).send('File not found');
+    }
+  });
 });
 
 // Start server

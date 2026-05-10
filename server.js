@@ -5,29 +5,25 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Get the directory where files are
-const fileDir = process.cwd();
+// Read index.html at startup
+const indexPath = path.join(__dirname, 'index.html');
+let indexContent;
 
-console.log(`Serving files from: ${fileDir}`);
-console.log(`Index.html exists: ${fs.existsSync(path.join(fileDir, 'index.html'))}`);
+try {
+  indexContent = fs.readFileSync(indexPath, 'utf8');
+  console.log(`✓ Loaded index.html (${indexContent.length} bytes)`);
+} catch (err) {
+  console.error('ERROR: Could not read index.html:', err.message);
+  indexContent = '<h1>Error: Could not load landing page</h1>';
+}
 
-// Serve static files (CSS, JS, images)
-app.use(express.static(fileDir));
+// Serve static files (CSS, JS, images, etc)
+app.use(express.static(__dirname));
 
-// Health check route
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', cwd: process.cwd() });
-});
-
-// Serve index.html for all routes (SPA fallback)
+// Serve index.html for all routes
 app.get('*', (req, res) => {
-  const indexPath = path.join(fileDir, 'index.html');
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      console.error('Error serving index.html:', err);
-      res.status(404).send('File not found');
-    }
-  });
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send(indexContent);
 });
 
 // Start server

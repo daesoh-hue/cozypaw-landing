@@ -1,4 +1,12 @@
 {
-  "buildCommand": "echo 'Static site - no build needed'",
-  "public": "."
+  "buildCommand": "npm install",
+  "public": ".",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "env": {
+    "STRIPE_SECRET_KEY": "@stripe_secret_key"
+  }
 }

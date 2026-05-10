@@ -413,8 +413,8 @@
     </footer>
 
     <script>
-        // Initialize Stripe (TEST MODE - Replace with your publishable key)
-        const stripe = Stripe('pk_test_51234567890123456789'); // PLACEHOLDER - Add real key
+        // Initialize Stripe with LIVE key
+        const stripe = Stripe('pk_live_51TUp2g0YbeF1w1hAjIGTZNz2MV2RQfe5q8xcC60GnHU2iFPj4vTOksemWzG5M0Yfd2SBQyJd1UAy3tZEG357f4Ol00p4csyfxl');
         const elements = stripe.elements();
         const cardElement = elements.create('card');
         cardElement.mount('#card-element');
@@ -468,12 +468,13 @@
             }
         });
 
-        // Handle form submission
+        // Handle form submission - REAL STRIPE PAYMENT
         document.getElementById('payment-form').addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const submitBtn = document.getElementById('submit-btn');
             const loading = document.getElementById('loading');
+            const displayError = document.getElementById('card-errors');
 
             // Validate form
             const name = document.getElementById('name').value;
@@ -485,33 +486,93 @@
             const phone = document.getElementById('phone').value;
 
             if (!name || !email || !address || !city || !state || !zip || !phone) {
-                alert('Please fill in all required fields');
+                displayError.textContent = 'Please fill in all required fields';
                 return;
             }
 
             // Show loading state
             submitBtn.disabled = true;
             loading.style.display = 'block';
+            displayError.textContent = '';
 
-            // DEMO: In production, this would call your backend to create a payment intent
-            // For now, we'll show a demo flow
+            try {
+                // Get cart total
+                const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const tax = subtotal * 0.08;
+                const total = subtotal + tax;
 
-            // Simulate payment processing
-            setTimeout(() => {
-                // In production, you would:
-                // 1. Call your backend to create a PaymentIntent
-                // 2. Use stripe.confirmCardPayment() to process the payment
-                // 3. Handle success/error responses
+                // Step 1: Create payment intent on backend
+                const response = await fetch('/api/create-payment-intent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount: total,
+                        description: `CozyPaw Order - ${cart.map(item => item.product).join(', ')}`,
+                        email: email,
+                        name: name,
+                    }),
+                });
 
-                // Demo success message
-                alert('✅ Thank you for your order!\n\nIn production, this would process your payment securely via Stripe.\n\nYour CozyPaw supplements will ship within 24 hours.\n\nOrder confirmation has been sent to: ' + email);
+                if (!response.ok) {
+                    throw new Error('Failed to create payment intent');
+                }
 
-                // Clear cart
-                localStorage.removeItem('cozypawCart');
+                const { clientSecret, paymentIntentId } = await response.json();
 
-                // Redirect to home
-                window.location.href = 'index.html';
-            }, 2000);
+                // Step 2: Confirm payment with Stripe
+                const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            name: name,
+                            email: email,
+                            address: {
+                                line1: address,
+                                city: city,
+                                state: state,
+                                postal_code: zip,
+                            },
+                            phone: phone,
+                        },
+                    },
+                });
+
+                // Step 3: Handle response
+                if (paymentIntent.status === 'succeeded') {
+                    // ✅ Payment successful!
+                    loading.style.display = 'none';
+
+                    // Show success message
+                    alert('✅ Thank you for your order!\n\nOrder ID: ' + paymentIntent.id + '\n\nYour CozyPaw supplements will ship within 24 hours.\n\nConfirmation email sent to: ' + email);
+
+                    // Clear cart
+                    localStorage.removeItem('cozypawCart');
+
+                    // Redirect to home
+                    window.location.href = 'index.html';
+
+                } else if (paymentIntent.status === 'processing') {
+                    // Payment is processing
+                    alert('Payment is being processed. Please wait...');
+                    submitBtn.disabled = false;
+                    loading.style.display = 'none';
+
+                } else {
+                    // Payment failed
+                    displayError.textContent = 'Payment failed. Please try again.';
+                    submitBtn.disabled = false;
+                    loading.style.display = 'none';
+                }
+
+            } catch (error) {
+                console.error('Payment error:', error);
+                displayError.textContent = 'Payment failed: ' + error.message;
+                submitBtn.disabled = false;
+                loading.style.display = 'none';
+            }
         });
 
         // Load checkout on page load

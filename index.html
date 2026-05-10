@@ -895,36 +895,65 @@
 
         // View cart
         function viewCart() {
-            let cart = getCartFromStorage();
-            let cartHTML = '';
-            let total = 0;
+            try {
+                console.log('viewCart() called');
 
-            if (cart.length === 0) {
-                cartHTML = '<p style="text-align: center; color: #888;">Your cart is empty</p>';
-            } else {
-                cartHTML = '<div style="border-bottom: 1px solid #e0e0e0; padding-bottom: 1rem;">';
-                cart.forEach((item, index) => {
-                    let itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    cartHTML += `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center;">
-                            <div>
-                                <strong>${item.product}</strong><br>
-                                <span style="color: #888;">Qty: ${item.quantity}</span>
+                const modalEl = document.getElementById('cartModal');
+                const itemsEl = document.getElementById('cartItems');
+                const totalEl = document.getElementById('cartTotal');
+
+                if (!modalEl) {
+                    console.error('cartModal element not found');
+                    showNotification('Error: cart modal not found', 'error');
+                    return;
+                }
+                if (!itemsEl) {
+                    console.error('cartItems element not found');
+                    showNotification('Error: cart items element not found', 'error');
+                    return;
+                }
+
+                let cart = getCartFromStorage();
+                console.log('Cart data:', cart);
+
+                let cartHTML = '';
+                let total = 0;
+
+                if (cart.length === 0) {
+                    cartHTML = '<p style="text-align: center; color: #888;">Your cart is empty</p>';
+                } else {
+                    cartHTML = '<div style="border-bottom: 1px solid #e0e0e0; padding-bottom: 1rem;">';
+                    cart.forEach((item, index) => {
+                        let itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        cartHTML += `
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center;">
+                                <div>
+                                    <strong>${item.product}</strong><br>
+                                    <span style="color: #888;">Qty: ${item.quantity}</span>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="color: var(--primary); font-weight: 700;">$${itemTotal.toFixed(2)}</div>
+                                    <button style="background: #ff6b6b; color: white; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.8rem; margin-top: 0.5rem;" onclick="removeFromCart(${index})">Remove</button>
+                                </div>
                             </div>
-                            <div style="text-align: right;">
-                                <div style="color: var(--primary); font-weight: 700;">$${itemTotal.toFixed(2)}</div>
-                                <button style="background: #ff6b6b; color: white; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.8rem; margin-top: 0.5rem;" onclick="removeFromCart(${index})">Remove</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                cartHTML += '</div>';
+                        `;
+                    });
+                    cartHTML += '</div>';
+                }
+
+                itemsEl.innerHTML = cartHTML;
+                if (totalEl) {
+                    totalEl.innerHTML = `Total: $${total.toFixed(2)}`;
+                }
+
+                console.log('Adding show class to modal');
+                modalEl.classList.add('show');
+                console.log('Modal should now be visible');
+            } catch (error) {
+                console.error('Error in viewCart():', error);
+                showNotification('Error opening cart: ' + error.message, 'error');
             }
-
-            document.getElementById('cartItems').innerHTML = cartHTML;
-            document.getElementById('cartTotal').innerHTML = `Total: $${total.toFixed(2)}`;
-            document.getElementById('cartModal').classList.add('show');
         }
 
         // Remove from cart
@@ -941,13 +970,24 @@
 
         // Proceed to checkout
         function proceedToCheckout() {
-            let cart = getCartFromStorage();
-            if (cart.length === 0) {
-                showNotification('Your cart is empty!', 'error');
-                closeCart();
-                return;
+            try {
+                console.log('proceedToCheckout() called');
+                let cart = getCartFromStorage();
+                console.log('Cart for checkout:', cart);
+
+                if (cart.length === 0) {
+                    console.log('Cart is empty');
+                    showNotification('Your cart is empty!', 'error');
+                    closeCart();
+                    return;
+                }
+
+                console.log('Redirecting to checkout...');
+                window.location.href = '/checkout.html';
+            } catch (error) {
+                console.error('Error in proceedToCheckout():', error);
+                showNotification('Error: ' + error.message, 'error');
             }
-            window.location.href = '/checkout.html';
         }
 
         // Close cart modal

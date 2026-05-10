@@ -5,11 +5,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static files (CSS, JS, images)
-app.use(express.static(path.join(__dirname)));
+const staticDir = process.cwd();
+app.use(express.static(staticDir));
 
 // Serve index.html for all routes (SPA fallback)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(staticDir, 'index.html'));
 });
 
 // Start server

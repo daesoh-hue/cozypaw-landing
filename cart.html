@@ -418,8 +418,8 @@
                 alert('Your cart is empty!');
                 return;
             }
-            alert('Thank you for your order! In a real implementation, this would process payment securely. Your CozyPaw supplements will ship within 24 hours.\n\nOrder Confirmation has been sent to your email.');
-            // In production, this would redirect to a payment processor (Stripe, PayPal, etc.)
+            // Redirect to secure checkout
+            window.location.href = 'checkout.html';
         }
 
         // Load cart on page load

@@ -637,12 +637,13 @@
         <div class="header-content">
             <div class="logo">🐾 COZYPAW</div>
             <nav>
-                <a href="#supplements">Supplements</a>
-                <a href="#accessories">Accessories</a>
-                <a href="#quiz">Find Your Chew</a>
-                <a href="#testimonials">Stories</a>
+                <a href="about.html">About</a>
+                <a href="shop.html">Shop</a>
+                <a href="blog.html">Blog</a>
+                <a href="cart.html">Cart</a>
+                <a href="account.html">Account</a>
             </nav>
-            <button class="cta-button">Shop Now</button>
+            <button class="cta-button" onclick="window.location.href='shop.html'">Shop Now</button>
         </div>
     </header>
 
@@ -653,8 +654,8 @@
             <p>CozyPaw's vet-formulated joint and mobility supplements give your aging companion the relief they deserve—so they can run, play, and cuddle on the couch pain-free.</p>
 
             <div class="hero-cta">
-                <button class="btn-primary">Start 60-Day Trial</button>
-                <button class="btn-secondary">Learn More</button>
+                <button class="btn-primary" onclick="window.location.href='shop.html'">Start 60-Day Trial</button>
+                <button class="btn-secondary" onclick="window.location.href='about.html'">Learn More</button>
             </div>
 
             <div class="trust-badges">
@@ -708,7 +709,7 @@
                     <h3>Joint & Mobility</h3>
                     <p>Green-lipped mussel, glucosamine, chondroitin for flexible joints and pain relief</p>
                     <div class="product-price">$39.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Joint & Mobility', 39.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -716,7 +717,7 @@
                     <h3>Calm & Relax</h3>
                     <p>Chamomile, L-theanine, and adaptogenic herbs for peaceful sleep</p>
                     <div class="product-price">$34.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Calm & Relax', 34.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -724,7 +725,7 @@
                     <h3>Gut & Digestion</h3>
                     <p>Probiotics, fiber, enzymes for healthy digestion and nutrient absorption</p>
                     <div class="product-price">$36.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Gut & Digestion', 36.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -732,7 +733,7 @@
                     <h3>Allergy & Skin</h3>
                     <p>Omega-3, collagen, turmeric for itchy skin and coat health</p>
                     <div class="product-price">$44.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Allergy & Skin', 44.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -740,7 +741,7 @@
                     <h3>Immune & Vitality</h3>
                     <p>Antioxidants, mushroom blend, elderberry for immune support</p>
                     <div class="product-price">$41.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Immune & Vitality', 41.99)">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -758,7 +759,7 @@
                     <h3>Orthopedic Pet Bed</h3>
                     <p>Memory foam support for arthritic joints and better sleep</p>
                     <div class="product-price">$129.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Orthopedic Pet Bed', 129.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -766,7 +767,7 @@
                     <h3>Ergonomic Leash</h3>
                     <p>Reduces pull on aging joints during walks</p>
                     <div class="product-price">$29.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Ergonomic Leash', 29.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -774,7 +775,7 @@
                     <h3>Elevated Bowls Set</h3>
                     <p>Raised feeding reduces neck strain for seniors</p>
                     <div class="product-price">$44.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Elevated Bowls Set', 44.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -782,7 +783,7 @@
                     <h3>Interactive Feeder</h3>
                     <p>Mental stimulation without overexertion</p>
                     <div class="product-price">$34.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Interactive Feeder', 34.99)">Add to Cart</button>
                 </div>
 
                 <div class="product-card fade-in">
@@ -790,7 +791,7 @@
                     <h3>Wellness Harness</h3>
                     <p>Support harness for weak back legs and mobility assistance</p>
                     <div class="product-price">$59.99</div>
-                    <button>Add to Cart</button>
+                    <button onclick="addToCart('Wellness Harness', 59.99)">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -921,7 +922,7 @@
         <div class="container">
             <h2 style="color: var(--accent); font-size: 42px;">Your Senior Dog Deserves to Feel Amazing</h2>
             <p style="color: rgba(250, 246, 239, 0.9); font-size: 18px; margin-bottom: 32px;">Join thousands of happy dog parents. Try CozyPaw risk-free for 60 days.</p>
-            <button class="btn-primary" style="padding: 18px 48px; font-size: 18px;">Shop Now</button>
+            <button class="btn-primary" onclick="window.location.href='shop.html'" style="padding: 18px 48px; font-size: 18px;">Shop Now</button>
         </div>
     </section>
 
@@ -932,11 +933,11 @@
             <p style="margin-top: 12px;">Premium supplements for senior dog wellness</p>
 
             <div class="footer-links">
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <a href="#privacy">Privacy</a>
-                <a href="#terms">Terms</a>
-                <a href="#guarantee">60-Day Guarantee</a>
+                <a href="about.html">About</a>
+                <a href="account.html">Contact</a>
+                <a href="blog.html">Blog</a>
+                <a href="shop.html">Shop</a>
+                <a href="cart.html">Cart</a>
             </div>
 
             <div class="footer-bottom">
@@ -947,6 +948,14 @@
     </footer>
 
     <script>
+        // Shopping cart functionality
+        function addToCart(product, price) {
+            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            cart.push({ product, price, quantity: 1 });
+            localStorage.setItem('cozypawCart', JSON.stringify(cart));
+            alert(product + ' added to cart!');
+        }
+
         let quizAnswers = {};
 
         function selectAnswer(answer) {

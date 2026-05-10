@@ -50,7 +50,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Header & Navigation */
+        /* ===== HEADER & NAVIGATION ===== */
         header {
             background-color: var(--primary);
             color: var(--accent);
@@ -74,14 +74,20 @@
             font-size: 28px;
             font-weight: 700;
             letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
         }
 
         nav a {
             color: var(--accent);
-            margin-left: 2rem;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
@@ -97,6 +103,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 12px;
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
@@ -105,7 +112,7 @@
             box-shadow: 0 4px 12px rgba(201, 106, 66, 0.3);
         }
 
-        /* Hero Section */
+        /* ===== HERO SECTION ===== */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, #1f3f35 100%);
             color: var(--accent);
@@ -217,7 +224,7 @@
             opacity: 0.9;
         }
 
-        /* Section Styles */
+        /* ===== SECTION STYLES ===== */
         section {
             padding: 80px 2rem;
         }
@@ -244,7 +251,7 @@
             margin-right: auto;
         }
 
-        /* Products Section */
+        /* ===== PRODUCTS SECTION ===== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -275,6 +282,7 @@
             height: 240px;
             object-fit: cover;
             display: block;
+            background-color: #f0f0f0;
         }
 
         .product-card h3,
@@ -308,6 +316,7 @@
             font-size: 14px;
             color: #666;
             margin-bottom: 16px;
+            flex-grow: 1;
         }
 
         .product-price {
@@ -318,7 +327,7 @@
         }
 
         .product-card button {
-            width: 100%;
+            width: calc(100% - 48px);
             background-color: var(--primary);
             color: var(--accent);
             padding: 12px;
@@ -333,13 +342,13 @@
             background-color: var(--secondary);
         }
 
-        /* Accessories */
+        /* ===== ACCESSORIES ===== */
         .accessories-section {
             background-color: #fafaf9;
             padding: 80px 2rem;
         }
 
-        /* Quiz Section */
+        /* ===== QUIZ SECTION ===== */
         .quiz-section {
             background: linear-gradient(135deg, var(--primary) 0%, #1f3f35 100%);
             color: var(--accent);
@@ -349,76 +358,71 @@
         .quiz-container {
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        .quiz-section h2 {
-            color: var(--accent);
-            margin-bottom: 40px;
-        }
-
-        .quiz-question {
             background: rgba(250, 246, 239, 0.1);
-            padding: 24px;
-            margin-bottom: 24px;
+            padding: 40px;
             border-radius: 8px;
             backdrop-filter: blur(10px);
         }
 
-        .quiz-question h3 {
-            font-size: 16px;
-            margin-bottom: 16px;
+        .quiz-container h2 {
             color: var(--accent);
+            margin-bottom: 24px;
         }
 
-        .quiz-options {
+        .quiz-question {
+            margin-bottom: 24px;
+        }
+
+        .quiz-question label {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .quiz-option {
-            background: transparent;
-            border: 2px solid rgba(250, 246, 239, 0.3);
-            color: var(--accent);
-            padding: 12px 16px;
-            text-align: left;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            align-items: center;
+            margin-bottom: 12px;
             cursor: pointer;
-            font-weight: 500;
+            font-size: 16px;
         }
 
-        .quiz-option:hover {
-            border-color: var(--secondary);
-            background: rgba(201, 106, 66, 0.1);
+        .quiz-question input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
         }
 
-        .quiz-result {
-            background: rgba(250, 246, 239, 0.15);
-            padding: 24px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 32px;
+        .quiz-btn {
+            width: 100%;
+            background-color: var(--secondary);
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .quiz-btn:hover {
+            background-color: #b85a35;
+        }
+
+        #quiz-result {
             display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 4px;
+            margin-bottom: 24px;
         }
 
-        .quiz-result.show {
+        #quiz-result.show {
             display: block;
-            animation: slideIn 0.5s ease;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            background-color: var(--light);
+            padding: 80px 2rem;
         }
 
-        /* Testimonials */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -429,180 +433,35 @@
             background: white;
             padding: 32px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .testimonial-header {
-            display: flex;
-            align-items: center;
+        .testimonial-stars {
+            color: #ffc107;
             margin-bottom: 16px;
+            font-size: 16px;
         }
 
-        .testimonial-avatar {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+        .testimonial-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
             font-weight: 700;
-            margin-right: 12px;
+            color: var(--primary);
+            margin-bottom: 4px;
         }
 
-        .testimonial-meta h3 {
-            font-size: 14px;
-            margin-bottom: 2px;
-        }
-
-        .testimonial-meta p {
-            font-size: 12px;
+        .testimonial-dog {
+            font-size: 13px;
             color: #999;
         }
 
-        .stars {
-            color: var(--secondary);
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .testimonial p {
-            font-size: 14px;
-            font-style: italic;
-            color: #666;
-        }
-
-        .before-after {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .ba-item {
-            text-align: center;
-        }
-
-        .ba-item small {
-            display: block;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-
-        .ba-item strong {
-            display: block;
-            font-size: 16px;
-            color: var(--primary);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: var(--accent);
-            padding: 48px 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            margin: 24px 0;
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--accent);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-bottom {
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid rgba(250, 246, 239, 0.2);
-            font-size: 12px;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-            }
-
-            section {
-                padding: 48px 1rem;
-            }
-
-            section h2 {
-                font-size: 32px;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .before-after {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 12px;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        /* Trust Badge Styles */
+        /* ===== TRUST SIGNALS ===== */
         .trust-section {
             background-color: var(--primary);
             color: var(--accent);
@@ -629,25 +488,104 @@
             font-size: 24px;
             margin-bottom: 4px;
         }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--dark);
+            color: var(--accent);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+
+            section h2 {
+                font-size: 32px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- HEADER -->
     <header>
         <div class="header-content">
-            <div class="logo">🐾 COZYPAW</div>
+            <div class="logo" onclick="window.location.href='index.html'">🐾 COZYPAW</div>
             <nav>
+                <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="shop.html">Shop</a>
                 <a href="blog.html">Blog</a>
-                <a href="cart.html">Cart</a>
                 <a href="account.html">Account</a>
             </nav>
             <button class="cta-button" onclick="window.location.href='shop.html'">Shop Now</button>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Help Your Senior Dog Move Like They're Young Again</h1>
@@ -675,7 +613,7 @@
         </div>
     </section>
 
-    <!-- Trust Signals -->
+    <!-- TRUST SIGNALS -->
     <section class="trust-section">
         <div class="trust-items">
             <div class="trust-item">
@@ -697,280 +635,215 @@
         </div>
     </section>
 
-    <!-- Supplements Section -->
-    <section id="supplements">
-        <div class="container">
-            <h2>Our Supplements</h2>
-            <p>Each formula targets specific senior dog health challenges</p>
+    <!-- PRODUCTS -->
+    <section class="container">
+        <h2>Our Premium Supplements</h2>
+        <p>Specially formulated for senior dogs. Each blend targets specific wellness needs.</p>
 
-            <div class="products-grid">
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184738_08e99cbb-743e-4ad2-9983-0efb8b81fc5d.png" alt="CozyPaw Joint & Mobility Supplement" class="product-image">
-                    <h3>Joint & Mobility</h3>
-                    <p>Green-lipped mussel, glucosamine, chondroitin for flexible joints and pain relief</p>
-                    <div class="product-price">$39.99</div>
-                    <button onclick="addToCart('Joint & Mobility', 39.99)">Add to Cart</button>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #2c5545, #1f3f35); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">💚</div>
                 </div>
+                <h3>Joint & Mobility</h3>
+                <p>Green-lipped mussel, glucosamine & chondroitin for flexible joints and pain relief.</p>
+                <div class="product-price">$39.99</div>
+                <button onclick="addToCart('Joint & Mobility', 39.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184854_30d63f42-8970-45ce-b6c7-55bed033e551.png" alt="CozyPaw Calm & Relax Supplement" class="product-image">
-                    <h3>Calm & Relax</h3>
-                    <p>Chamomile, L-theanine, and adaptogenic herbs for peaceful sleep</p>
-                    <div class="product-price">$34.99</div>
-                    <button onclick="addToCart('Calm & Relax', 34.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #8b6f47, #6b5839); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">😴</div>
                 </div>
+                <h3>Calm & Relax</h3>
+                <p>Chamomile, L-theanine & adaptogens to ease anxiety and promote restful sleep.</p>
+                <div class="product-price">$34.99</div>
+                <button onclick="addToCart('Calm & Relax', 34.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184854_30d63f42-8970-45ce-b6c7-55bed033e551.png" alt="CozyPaw Gut & Digestion Supplement" class="product-image">
-                    <h3>Gut & Digestion</h3>
-                    <p>Probiotics, fiber, enzymes for healthy digestion and nutrient absorption</p>
-                    <div class="product-price">$36.99</div>
-                    <button onclick="addToCart('Gut & Digestion', 36.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #c96a42, #a64d2e); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🧡</div>
                 </div>
+                <h3>Gut & Digestion</h3>
+                <p>Probiotics, fiber & enzymes for healthy digestion and nutrient absorption.</p>
+                <div class="product-price">$36.99</div>
+                <button onclick="addToCart('Gut & Digestion', 36.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184738_2afdfab3-34d9-44a3-a9e5-e89fbc86a968.png" alt="CozyPaw Allergy & Skin Supplement" class="product-image">
-                    <h3>Allergy & Skin</h3>
-                    <p>Omega-3, collagen, turmeric for itchy skin and coat health</p>
-                    <div class="product-price">$44.99</div>
-                    <button onclick="addToCart('Allergy & Skin', 44.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #d4a574, #b8956f); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🌿</div>
                 </div>
+                <h3>Allergy & Skin</h3>
+                <p>Omega-3, collagen & turmeric for healthy coat and relief from itchy skin.</p>
+                <div class="product-price">$44.99</div>
+                <button onclick="addToCart('Allergy & Skin', 44.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184739_d451326c-5ad4-4f2b-bf42-78fefb6aef02.png" alt="CozyPaw Immune & Vitality Supplement" class="product-image">
-                    <h3>Immune & Vitality</h3>
-                    <p>Antioxidants, mushroom blend, elderberry for immune support</p>
-                    <div class="product-price">$41.99</div>
-                    <button onclick="addToCart('Immune & Vitality', 41.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #a4c639, #8ab030); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">⚡</div>
                 </div>
+                <h3>Immune & Vitality</h3>
+                <p>Antioxidants, mushrooms & elderberry to boost immunity and energy levels.</p>
+                <div class="product-price">$41.99</div>
+                <button onclick="addToCart('Immune & Vitality', 41.99)">Add to Cart</button>
             </div>
         </div>
     </section>
 
-    <!-- Accessories Section -->
-    <section id="accessories" class="accessories-section">
-        <div class="container">
-            <h2>Complete Comfort Collection</h2>
-            <p>Handpicked accessories to support your senior dog's wellbeing</p>
+    <!-- ACCESSORIES -->
+    <section class="accessories-section container">
+        <h2>Comfort & Wellness Accessories</h2>
+        <p>Complement our supplements with products designed for aging dogs.</p>
 
-            <div class="products-grid">
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184051_0b19be97-bcf9-49aa-9f3a-dd6f3fc71848.png" alt="CozyPaw Orthopedic Pet Bed" class="product-image">
-                    <h3>Orthopedic Pet Bed</h3>
-                    <p>Memory foam support for arthritic joints and better sleep</p>
-                    <div class="product-price">$129.99</div>
-                    <button onclick="addToCart('Orthopedic Pet Bed', 129.99)">Add to Cart</button>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #8b7d6b, #6b5d4b); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🛏️</div>
                 </div>
+                <h3>Orthopedic Pet Bed</h3>
+                <p>Memory foam support for aching joints. Machine washable cover.</p>
+                <div class="product-price">$129.99</div>
+                <button onclick="addToCart('Orthopedic Pet Bed', 129.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184050_b6d6fc29-2ed3-46a4-94b6-ef4d174e86e0.png" alt="CozyPaw Ergonomic Leash" class="product-image">
-                    <h3>Ergonomic Leash</h3>
-                    <p>Reduces pull on aging joints during walks</p>
-                    <div class="product-price">$29.99</div>
-                    <button onclick="addToCart('Ergonomic Leash', 29.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #c96a42, #a64d2e); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🦮</div>
                 </div>
+                <h3>Ergonomic Leash</h3>
+                <p>Reduces strain on joints during walks with comfortable grip and padding.</p>
+                <div class="product-price">$29.99</div>
+                <button onclick="addToCart('Ergonomic Leash', 29.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184157_74812f55-c3b7-4c01-a5c4-69a3da5c05f1.png" alt="CozyPaw Elevated Bowls Set" class="product-image">
-                    <h3>Elevated Bowls Set</h3>
-                    <p>Raised feeding reduces neck strain for seniors</p>
-                    <div class="product-price">$44.99</div>
-                    <button onclick="addToCart('Elevated Bowls Set', 44.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #d4a574, #b8956f); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🍽️</div>
                 </div>
+                <h3>Elevated Bowls Set</h3>
+                <p>Reduces neck strain while eating. Non-slip bases keep bowls in place.</p>
+                <div class="product-price">$44.99</div>
+                <button onclick="addToCart('Elevated Bowls Set', 44.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184157_57dd2516-8511-4d24-8819-ef0119e30d3c.png" alt="CozyPaw Interactive Feeder" class="product-image">
-                    <h3>Interactive Feeder</h3>
-                    <p>Mental stimulation without overexertion</p>
-                    <div class="product-price">$34.99</div>
-                    <button onclick="addToCart('Interactive Feeder', 34.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #a4c639, #8ab030); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🎲</div>
                 </div>
+                <h3>Interactive Feeder</h3>
+                <p>Slow feeding puzzle to engage minds and reduce bloating.</p>
+                <div class="product-price">$34.99</div>
+                <button onclick="addToCart('Interactive Feeder', 34.99)">Add to Cart</button>
+            </div>
 
-                <div class="product-card fade-in">
-                    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3DLt1yZHxzejsJEByKOTp9y9ACd/hf_20260510_184157_d9d35a08-d9dc-4aa3-886e-de5e792181b5.png" alt="CozyPaw Wellness Harness" class="product-image">
-                    <h3>Wellness Harness</h3>
-                    <p>Support harness for weak back legs and mobility assistance</p>
-                    <div class="product-price">$59.99</div>
-                    <button onclick="addToCart('Wellness Harness', 59.99)">Add to Cart</button>
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #2c5545, #1f3f35); display: flex; align-items: center; justify-content: center;">
+                    <div class="product-icon">🦺</div>
                 </div>
+                <h3>Wellness Harness</h3>
+                <p>Provides support for weak back legs with adjustable fit.</p>
+                <div class="product-price">$59.99</div>
+                <button onclick="addToCart('Wellness Harness', 59.99)">Add to Cart</button>
             </div>
         </div>
     </section>
 
-    <!-- Quiz Section -->
-    <section id="quiz" class="quiz-section">
+    <!-- QUIZ -->
+    <section class="quiz-section">
+        <h2>Find Your Perfect Match</h2>
         <div class="quiz-container">
-            <h2>Find Your Perfect Chew</h2>
-            <p style="margin-bottom: 32px;">Answer 3 quick questions to get personalized recommendations</p>
-
+            <div id="quiz-result"></div>
             <div id="quiz-questions">
                 <div class="quiz-question">
-                    <h3>What's your dog's main concern?</h3>
-                    <div class="quiz-options">
-                        <button class="quiz-option" onclick="selectAnswer('mobility')">🦴 Joint & Mobility Issues</button>
-                        <button class="quiz-option" onclick="selectAnswer('digestion')">🫘 Digestive Problems</button>
-                        <button class="quiz-option" onclick="selectAnswer('anxiety')">😰 Anxiety & Restlessness</button>
-                        <button class="quiz-option" onclick="selectAnswer('skin')">🐕 Itchy Skin</button>
-                    </div>
+                    <p style="margin-bottom: 16px; font-weight: 600;">What's your senior dog's main concern?</p>
+                    <label>
+                        <input type="radio" name="concern" value="mobility"> Joint pain & limited mobility
+                    </label>
+                    <label>
+                        <input type="radio" name="concern" value="digestion"> Digestion & nutrient absorption
+                    </label>
+                    <label>
+                        <input type="radio" name="concern" value="anxiety"> Anxiety & restlessness
+                    </label>
+                    <label>
+                        <input type="radio" name="concern" value="skin"> Itchy skin & coat quality
+                    </label>
                 </div>
-
-                <div class="quiz-question">
-                    <h3>How old is your pup?</h3>
-                    <div class="quiz-options">
-                        <button class="quiz-option" onclick="selectAnswer('7-9')">7-9 years</button>
-                        <button class="quiz-option" onclick="selectAnswer('10-12')">10-12 years</button>
-                        <button class="quiz-option" onclick="selectAnswer('13+')">13+ years</button>
-                    </div>
-                </div>
-
-                <div class="quiz-question">
-                    <h3>What's your preferred format?</h3>
-                    <div class="quiz-options">
-                        <button class="quiz-option" onclick="selectAnswer('powder')">💨 Powder (mix with food)</button>
-                        <button class="quiz-option" onclick="selectAnswer('chew')">🦴 Chewy Treats</button>
-                        <button class="quiz-option" onclick="selectAnswer('capsule')">💊 Capsules</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="quiz-result" id="quiz-result">
-                <h3 style="font-size: 24px; margin-bottom: 12px;">✨ Your Recommendation ✨</h3>
-                <p id="recommendation" style="font-size: 16px; margin-bottom: 16px;"></p>
-                <button class="btn-primary" onclick="startTrial()">Start Your Trial</button>
+                <button class="quiz-btn" onclick="submitQuiz()">Get My Recommendation</button>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials">
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section">
         <div class="container">
-            <h2>Real Stories. Real Results.</h2>
-            <p>See how CozyPaw changed dogs' lives</p>
+            <h2>Senior Dogs Love CozyPaw</h2>
+            <p>Join thousands of happy pet parents who've given their aging dogs a new lease on life.</p>
 
             <div class="testimonials-grid">
-                <div class="testimonial fade-in">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">MJ</div>
-                        <div class="testimonial-meta">
-                            <h3>Max & Jennifer</h3>
-                            <p>Golden Retriever, 11 years</p>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p>"Max couldn't walk without pain. After 2 weeks on CozyPaw, he was running in the yard again. Now at 11, he's got his life back."</p>
-                    <div class="before-after">
-                        <div class="ba-item">
-                            <small>Before</small>
-                            <strong>Limping</strong>
-                        </div>
-                        <div class="ba-item">
-                            <small>After</small>
-                            <strong>Running</strong>
-                        </div>
-                    </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"Max was struggling with arthritis and could barely walk. After 2 weeks on CozyPaw, he was playing again. It's been a miracle for our family."</div>
+                    <div class="testimonial-author">Jennifer Rodriguez</div>
+                    <div class="testimonial-dog">Max, Golden Retriever, 12 years old</div>
                 </div>
 
-                <div class="testimonial fade-in">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">SB</div>
-                        <div class="testimonial-meta">
-                            <h3>Sophie & Bob</h3>
-                            <p>Labrador, 13 years</p>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p>"We tried everything. CozyPaw's Allergy & Skin formula finally stopped Sophie's constant itching. She's comfortable again."</p>
-                    <div class="before-after">
-                        <div class="ba-item">
-                            <small>Before</small>
-                            <strong>Constant Scratching</strong>
-                        </div>
-                        <div class="ba-item">
-                            <small>After</small>
-                            <strong>Peaceful & Happy</strong>
-                        </div>
-                    </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"Our vet recommended joint supplements, but we were hesitant. CozyPaw's ingredients are transparent and the results speak for themselves. Sophie is visibly more active."</div>
+                    <div class="testimonial-author">Robert Chen</div>
+                    <div class="testimonial-dog">Sophie, Labrador, 11 years old</div>
                 </div>
 
-                <div class="testimonial fade-in">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">CL</div>
-                        <div class="testimonial-meta">
-                            <h3>Charlie & Lisa</h3>
-                            <p>Dachshund, 10 years</p>
-                        </div>
-                    </div>
-                    <div class="stars">★★★★★</div>
-                    <p>"Charlie was anxious and couldn't sleep. The Calm & Relax supplement works like magic. He's relaxed and sleeping through the night."</p>
-                    <div class="before-after">
-                        <div class="ba-item">
-                            <small>Before</small>
-                            <strong>Restless</strong>
-                        </div>
-                        <div class="ba-item">
-                            <small>After</small>
-                            <strong>Peaceful Sleep</strong>
-                        </div>
-                    </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"Charlie had digestive issues for years. CozyPaw's gut blend fixed everything. Plus the bed is so comfortable—he doesn't want to get up!"</div>
+                    <div class="testimonial-author">Lisa Martinez</div>
+                    <div class="testimonial-dog">Charlie, Mixed Breed, 13 years old</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section style="background: linear-gradient(135deg, var(--primary) 0%, #1f3f35 100%); color: var(--accent); text-align: center;">
-        <div class="container">
-            <h2 style="color: var(--accent); font-size: 42px;">Your Senior Dog Deserves to Feel Amazing</h2>
-            <p style="color: rgba(250, 246, 239, 0.9); font-size: 18px; margin-bottom: 32px;">Join thousands of happy dog parents. Try CozyPaw risk-free for 60 days.</p>
-            <button class="btn-primary" onclick="window.location.href='shop.html'" style="padding: 18px 48px; font-size: 18px;">Shop Now</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
-            <div class="logo" style="color: var(--accent);">🐾 COZYPAW</div>
-            <p style="margin-top: 12px;">Premium supplements for senior dog wellness</p>
-
-            <div class="footer-links">
-                <a href="about.html">About</a>
-                <a href="account.html">Contact</a>
-                <a href="blog.html">Blog</a>
-                <a href="shop.html">Shop</a>
-                <a href="cart.html">Cart</a>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2026 CozyPaw. All rights reserved. | Made with 🐾 for senior dogs everywhere</p>
-                <p style="margin-top: 12px; font-size: 11px;">*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
-            </div>
-        </div>
+        <p>&copy; 2026 CozyPaw. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
+            <a href="about.html">About</a> |
+            <a href="shop.html">Shop</a> |
+            <a href="blog.html">Blog</a> |
+            <a href="cart.html">Cart</a> |
+            <a href="account.html">Account</a>
+        </p>
     </footer>
 
     <script>
-        // Shopping cart functionality
+        // Shopping Cart
         function addToCart(product, price) {
             let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
-            cart.push({ product, price, quantity: 1 });
+            const existingItem = cart.find(item => item.product === product);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ product, price, quantity: 1 });
+            }
+
             localStorage.setItem('cozypawCart', JSON.stringify(cart));
             alert(product + ' added to cart!');
         }
 
-        let quizAnswers = {};
-
-        function selectAnswer(answer) {
-            const currentQuestion = document.querySelector('.quiz-question:not(.answered)');
-            if (currentQuestion) {
-                currentQuestion.classList.add('answered');
-                quizAnswers[Object.keys(quizAnswers).length] = answer;
-
-                if (Object.keys(quizAnswers).length === 3) {
-                    showQuizResult();
-                }
+        // Quiz
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="concern"]:checked');
+            if (!selected) {
+                alert('Please select an option');
+                return;
             }
-        }
 
-        function showQuizResult() {
             const recommendations = {
                 'mobility': 'Joint & Mobility Supplement',
                 'digestion': 'Gut & Digestion Supplement',
@@ -978,16 +851,10 @@
                 'skin': 'Allergy & Skin Supplement',
             };
 
-            const mainConcern = Object.values(quizAnswers)[0];
-            const recommendedProduct = recommendations[mainConcern] || 'Joint & Mobility Supplement';
-
-            document.getElementById('recommendation').textContent = `Based on your answers, we recommend our ${recommendedProduct} - perfect for your senior dog's needs.`;
+            const recommendation = recommendations[selected.value];
+            document.getElementById('recommendation').textContent = `Based on your answers, we recommend our ${recommendation} - perfect for your senior dog's needs.`;
             document.getElementById('quiz-result').classList.add('show');
             document.getElementById('quiz-questions').style.display = 'none';
-        }
-
-        function startTrial() {
-            alert('Thanks for taking the quiz! Redirecting to checkout...');
         }
 
         // Fade in animations on scroll
@@ -1013,7 +880,7 @@
         };
 
         // Track page load
-        console.log('CozyPaw Landing Page Loaded - Sandbox Mode');
+        console.log('CozyPaw Landing Page Loaded');
     </script>
 </body>
 </html>

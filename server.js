@@ -1,33 +1,40 @@
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
-// Read index.html at startup
-const indexPath = path.join(__dirname, 'index.html');
-let indexContent;
+console.log(`Starting server on port ${PORT}...`);
+console.log(`CWD: ${process.cwd()}`);
+console.log(`__dirname: ${__dirname}`);
 
+// Read HTML file
+const htmlPath = path.join(__dirname, 'index.html');
+console.log(`Looking for HTML at: ${htmlPath}`);
+
+let html = '';
 try {
-  indexContent = fs.readFileSync(indexPath, 'utf8');
-  console.log(`✓ Loaded index.html (${indexContent.length} bytes)`);
-} catch (err) {
-  console.error('ERROR: Could not read index.html:', err.message);
-  indexContent = '<h1>Error: Could not load landing page</h1>';
+  html = fs.readFileSync(htmlPath, 'utf8');
+  console.log(`✓ Successfully loaded index.html (${html.length} bytes)`);
+} catch (e) {
+  console.error(`✗ Failed to load index.html:`, e.message);
+  html = '<h1>Landing page not found</h1>';
 }
 
-// Serve static files (CSS, JS, images, etc)
+// Serve static assets
 app.use(express.static(__dirname));
 
-// Serve index.html for all routes
-app.get('*', (req, res) => {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(indexContent);
+// Serve HTML for all routes
+app.all('*', (req, res) => {
+  res.type('text/html').send(html);
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🐾 CozyPaw landing page running on port ${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`🐾 Server running on port ${PORT}`);
   console.log(`Ready for drop day!`);
+});
+
+server.on('error', (err) => {
+  console.error('Server error:', err);
 });

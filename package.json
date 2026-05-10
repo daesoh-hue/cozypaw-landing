@@ -1,0 +1,9 @@
+{
+  "name": "cozypaw-landing",
+  "version": "1.0.0",
+  "description": "CozyPaw Senior Dog Supplement Landing Page",
+  "private": true,
+  "dependencies": {
+    "stripe": "^13.0.0"
+  }
+}

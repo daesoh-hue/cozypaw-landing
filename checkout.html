@@ -413,15 +413,57 @@
     </footer>
 
     <script>
-        // Initialize Stripe with LIVE key
-        const stripe = Stripe('pk_live_51TUp2g0YbeF1w1hAjIGTZNz2MV2RQfe5q8xcC60GnHU2iFPj4vTOksemWzG5M0Yfd2SBQyJd1UAy3tZEG357f4Ol00p4csyfxl');
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+        // Initialize Stripe - key injected from environment
+        // This is set via STRIPE_PUBLIC_KEY environment variable in vercel.json
+        let stripe, elements, cardElement;
 
-        // Load cart and display items
+        // Fetch Stripe public key from backend API
+        async function initializeStripe() {
+            try {
+                // Fetch the Stripe public key from the config endpoint
+                const configResponse = await fetch('/api/config');
+                if (!configResponse.ok) {
+                    throw new Error('Failed to fetch Stripe configuration');
+                }
+                const { stripePublicKey } = await configResponse.json();
+
+                if (!stripePublicKey) {
+                    console.error('Stripe public key not available');
+                    document.getElementById('stripe-error').innerHTML =
+                        'Payment system is not configured. Please contact support.';
+                    document.getElementById('submit-btn').disabled = true;
+                    return;
+                }
+
+                stripe = Stripe(stripePublicKey);
+                elements = stripe.elements();
+                cardElement = elements.create('card');
+                cardElement.mount('#card-element');
+                setupCardErrorHandler();
+            } catch (error) {
+                console.error('Stripe initialization error:', error);
+                document.getElementById('stripe-error').innerHTML =
+                    'Failed to load payment system. Please refresh the page.';
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeStripe);
+
+        // Load cart and display items with safe localStorage parsing
         function loadCheckout() {
-            const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            let cart = [];
+            try {
+                const cartData = localStorage.getItem('cozypawCart');
+                cart = cartData ? JSON.parse(cartData) : [];
+                // Validate cart structure
+                if (!Array.isArray(cart)) {
+                    cart = [];
+                }
+            } catch (error) {
+                console.error('Failed to parse cart data:', error);
+                cart = [];
+            }
             const orderItemsDiv = document.getElementById('order-items');
 
             if (cart.length === 0) {
@@ -458,35 +500,83 @@
             document.getElementById('total').textContent = '$' + total.toFixed(2);
         }
 
-        // Handle card errors
-        cardElement.addEventListener('change', (event) => {
-            const displayError = document.getElementById('card-errors');
-            if (event.error) {
-                displayError.textContent = event.error.message;
-            } else {
-                displayError.textContent = '';
+        // Handle card errors (after cardElement is initialized)
+        function setupCardErrorHandler() {
+            if (cardElement) {
+                cardElement.addEventListener('change', (event) => {
+                    const displayError = document.getElementById('card-errors');
+                    if (event.error) {
+                        displayError.textContent = event.error.message;
+                    } else {
+                        displayError.textContent = '';
+                    }
+                });
             }
-        });
+        }
+
+        // Validate email format
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Validate phone format (basic - US format)
+        function isValidPhone(phone) {
+            return /^[\d\s\-\(\)]{10,}$/.test(phone.replace(/\D/g, ''));
+        }
+
+        // Validate ZIP code
+        function isValidZip(zip) {
+            return /^\d{5}(-\d{4})?$/.test(zip);
+        }
 
         // Handle form submission - REAL STRIPE PAYMENT
         document.getElementById('payment-form').addEventListener('submit', async (event) => {
             event.preventDefault();
+
+            // Check if Stripe is initialized
+            if (!stripe || !cardElement) {
+                document.getElementById('card-errors').textContent =
+                    'Payment system is not ready. Please refresh the page and try again.';
+                return;
+            }
 
             const submitBtn = document.getElementById('submit-btn');
             const loading = document.getElementById('loading');
             const displayError = document.getElementById('card-errors');
 
             // Validate form
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const address = document.getElementById('address').value;
-            const city = document.getElementById('city').value;
-            const state = document.getElementById('state').value;
-            const zip = document.getElementById('zip').value;
-            const phone = document.getElementById('phone').value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const zip = document.getElementById('zip').value.trim();
+            const phone = document.getElementById('phone').value.trim();
 
+            // Basic required field validation
             if (!name || !email || !address || !city || !state || !zip || !phone) {
                 displayError.textContent = 'Please fill in all required fields';
+                return;
+            }
+
+            // Format validation
+            if (!isValidEmail(email)) {
+                displayError.textContent = 'Please enter a valid email address';
+                return;
+            }
+
+            if (!isValidPhone(phone)) {
+                displayError.textContent = 'Please enter a valid phone number';
+                return;
+            }
+
+            if (!isValidZip(zip)) {
+                displayError.textContent = 'Please enter a valid ZIP code (format: 12345 or 12345-6789)';
+                return;
+            }
+
+            if (state.length !== 2) {
+                displayError.textContent = 'Please enter a valid 2-letter state code';
                 return;
             }
 
@@ -496,8 +586,29 @@
             displayError.textContent = '';
 
             try {
-                // Get cart total
-                const cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+                // Get cart total with safe parsing
+                let cart = [];
+                try {
+                    const cartData = localStorage.getItem('cozypawCart');
+                    cart = cartData ? JSON.parse(cartData) : [];
+                    if (!Array.isArray(cart)) {
+                        cart = [];
+                    }
+                } catch (parseError) {
+                    console.error('Failed to parse cart:', parseError);
+                    displayError.textContent = 'Error reading your cart. Please refresh the page.';
+                    submitBtn.disabled = false;
+                    loading.style.display = 'none';
+                    return;
+                }
+
+                if (cart.length === 0) {
+                    displayError.textContent = 'Your cart is empty';
+                    submitBtn.disabled = false;
+                    loading.style.display = 'none';
+                    return;
+                }
+
                 const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                 const tax = subtotal * 0.08;
                 const total = subtotal + tax;

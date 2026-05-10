@@ -787,16 +787,39 @@
     </div>
 
     <script>
+        // Safe localStorage parsing helper
+        function getCartFromStorage() {
+            try {
+                const cartData = localStorage.getItem('cozypawCart');
+                const cart = cartData ? JSON.parse(cartData) : [];
+                return Array.isArray(cart) ? cart : [];
+            } catch (error) {
+                console.error('Failed to parse cart from localStorage:', error);
+                return [];
+            }
+        }
+
+        // Save cart to localStorage safely
+        function saveCartToStorage(cart) {
+            try {
+                localStorage.setItem('cozypawCart', JSON.stringify(cart));
+                return true;
+            } catch (error) {
+                console.error('Failed to save cart to localStorage:', error);
+                return false;
+            }
+        }
+
         // Initialize cart count
         function updateCartCount() {
-            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
-            let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            let cart = getCartFromStorage();
+            let count = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
             document.getElementById('cartCount').textContent = count;
         }
 
         // Add to cart function
         function addToCart(product, price) {
-            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            let cart = getCartFromStorage();
             const existingItem = cart.find(item => item.product === product);
 
             if (existingItem) {
@@ -805,14 +828,74 @@
                 cart.push({ product, price, quantity: 1 });
             }
 
-            localStorage.setItem('cozypawCart', JSON.stringify(cart));
-            updateCartCount();
-            alert(`${product} added to cart! 🎉`);
+            if (saveCartToStorage(cart)) {
+                updateCartCount();
+                // Use a simple toast instead of alert
+                showNotification(`${product} added to cart! 🎉`);
+            } else {
+                showNotification('Error saving to cart. Please try again.', 'error');
+            }
+        }
+
+        // Simple notification system
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${type === 'error' ? '#ff6b6b' : '#4caf50'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 4px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations for notifications
+        if (!document.getElementById('notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(400px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                @keyframes slideOut {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(400px);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         }
 
         // View cart
         function viewCart() {
-            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            let cart = getCartFromStorage();
             let cartHTML = '';
             let total = 0;
 
@@ -846,18 +929,22 @@
 
         // Remove from cart
         function removeFromCart(index) {
-            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            let cart = getCartFromStorage();
             cart.splice(index, 1);
-            localStorage.setItem('cozypawCart', JSON.stringify(cart));
-            updateCartCount();
-            viewCart();
+            if (saveCartToStorage(cart)) {
+                updateCartCount();
+                viewCart();
+            } else {
+                showNotification('Error updating cart. Please try again.', 'error');
+            }
         }
 
         // Proceed to checkout
         function proceedToCheckout() {
-            let cart = JSON.parse(localStorage.getItem('cozypawCart')) || [];
+            let cart = getCartFromStorage();
             if (cart.length === 0) {
-                alert('Your cart is empty!');
+                showNotification('Your cart is empty!', 'error');
+                closeCart();
                 return;
             }
             window.location.href = '/checkout.html';

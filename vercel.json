@@ -4,18 +4,6 @@
       "runtime": "nodejs20.x"
     }
   },
-  "env": {
-    "STRIPE_SECRET_KEY": "@stripe_secret_key",
-    "STRIPE_PUBLIC_KEY": "@stripe_public_key"
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "buildCommand": "npm install",
+  "installCommand": "npm install"
 }
